@@ -7,8 +7,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path("api/admin/", admin.site.urls),
-    path('token/', TokenObtainPairView.as_view()),
-    path('token/refresh/', TokenRefreshView.as_view()),
+    path('api/token/', TokenObtainPairView.as_view()),
+    path('api/refresh/', TokenRefreshView.as_view()),
     path("", include('users.urls')),
 
     path("api/redoc-tasks/", include("redoc.urls")),
