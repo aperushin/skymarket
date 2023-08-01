@@ -3,8 +3,18 @@ from ads.models import Ad, Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    # TODO сериалайзер для модели
-    pass
+    pk = serializers.ReadOnlyField(source="id")
+    author_first_name = serializers.CharField(source="author.first_name", read_only=True)
+    author_last_name = serializers.CharField(source="author.last_name", read_only=True)
+    author_id = serializers.ReadOnlyField(source="author.id", read_only=True)
+    author_image = serializers.ImageField(source="author.image", read_only=True, allow_empty_file=True)
+    ad_id = serializers.ReadOnlyField(source="ad.id")
+    created_at = serializers.DateTimeField(read_only=True)
+
+    class Meta:
+        model = Comment
+        exclude = ["id", "author", "ad"]
+        extra_fields = ["pk", "author_first_name", "author_last_name", "author_id", "author_image", "ad_id"]
 
 
 class AdSerializer(serializers.ModelSerializer):
