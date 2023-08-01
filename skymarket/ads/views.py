@@ -1,8 +1,10 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
 
 from ads.models import Ad, Comment
+from ads.filters import AdFilterSet
 from ads.serializers import AdSerializer, AdDetailSerializer, AdCreateSerializer, CommentSerializer
 
 
@@ -22,6 +24,8 @@ class AdViewSet(ModelViewSet):
         "partial_update": AdCreateSerializer,
     }
     pagination_class = AdPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = AdFilterSet
 
     def get_serializer_class(self):
         return self.serializer_classes.get(self.action, self.default_serializer)
