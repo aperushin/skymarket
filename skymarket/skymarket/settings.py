@@ -103,6 +103,7 @@ DJOSER = {
         "user_create": "users.serializers.UserRegistrationSerializer",
     },
     "LOGIN_FIELD": "email",
+    'PASSWORD_RESET_CONFIRM_URL': '/users/reset_password/',
 }
 
 # Database
