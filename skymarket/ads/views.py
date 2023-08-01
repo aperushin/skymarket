@@ -1,3 +1,4 @@
+from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 
 from ads.models import Ad
@@ -25,6 +26,14 @@ class AdViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
         return super().perform_create(serializer)
+
+
+class MyAdListView(ListAPIView):
+    queryset = Ad.objects.all()
+    serializer_class = AdSerializer
+
+    def get_queryset(self):
+        return Ad.objects.filter(author=self.request.user)
 
 
 class CommentViewSet(ModelViewSet):
