@@ -90,6 +90,9 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ]
 }
 
 SPECTACULAR_SETTINGS = {
@@ -101,6 +104,7 @@ SPECTACULAR_SETTINGS = {
 DJOSER = {
     "SERIALIZERS": {
         "user_create": "users.serializers.UserRegistrationSerializer",
+        "current_user": "users.serializers.CurrentUserSerializer",
     },
     "LOGIN_FIELD": "email",
     'PASSWORD_RESET_CONFIRM_URL': '/users/reset_password/',
