@@ -1,13 +1,13 @@
-from django.urls import path
+from django.urls import path, include
 from rest_framework.routers import SimpleRouter
 
-from ads.views import AdViewSet, MyAdListView
+from ads.views import AdViewSet, MyAdListView, CommentViewSet
 
 router = SimpleRouter()
-router.register("ads", AdViewSet)
+router.register("", AdViewSet)
+# router.register("<int:user_pk>", CommentViewSet)
 
 urlpatterns = [
-    path("ads/me/", MyAdListView.as_view())
+    path("me/", MyAdListView.as_view()),
+    path("", include(router.urls))
 ]
-
-urlpatterns += router.urls
