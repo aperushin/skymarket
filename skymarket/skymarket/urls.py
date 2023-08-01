@@ -7,9 +7,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path("api/admin/", admin.site.urls),
-    path('api/token/', TokenObtainPairView.as_view()),
-    path('api/refresh/', TokenRefreshView.as_view()),
-    path("", include('users.urls')),
+    path("api/token/", TokenObtainPairView.as_view()),
+    path("api/refresh/", TokenRefreshView.as_view()),
+    path("api/", include('users.urls')),
+    path("api/", include('ads.urls')),
 
     path("api/redoc-tasks/", include("redoc.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
