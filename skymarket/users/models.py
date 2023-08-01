@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
@@ -17,7 +17,7 @@ class User(AbstractBaseUser):
     phone = PhoneNumberField()
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=5, choices=UserRoles.choices, default=UserRoles.USER)
-    image = models.ImageField(upload_to="images/", null=True)
+    image = models.ImageField(upload_to="user_images/", null=True)
     is_active = models.BooleanField(default=True)
 
     objects = UserManager()
