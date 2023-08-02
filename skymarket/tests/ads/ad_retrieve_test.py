@@ -2,8 +2,8 @@ import pytest
 
 
 @pytest.mark.django_db
-def test_retrieve_ad(client, ad, user_token_and_id):
-    token, _ = user_token_and_id
+def test_retrieve_ad(client, ad, user_token_and_object):
+    token, _ = user_token_and_object
 
     expected_response = {
         "pk": ad.pk,
@@ -17,7 +17,7 @@ def test_retrieve_ad(client, ad, user_token_and_id):
         "author_id": ad.author_id
     }
 
-    response = client.get(f'/api/ads/{ad.pk}/', HTTP_AUTHORIZATION=f'Bearer {token}')
+    response = client.get(f'/api/ads/{ad.pk}/', HTTP_AUTHORIZATION=f"Bearer {token}")
 
     assert response.data == expected_response
     assert response.status_code == 200
@@ -25,7 +25,7 @@ def test_retrieve_ad(client, ad, user_token_and_id):
 
 @pytest.mark.django_db
 def test_retrieve_ad_unauthorized(client, ad):
-    response = client.get(f'/api/ads/{ad.pk}/')
+    response = client.get(f"/api/ads/{ad.pk}/")
 
     assert response.data == {"detail": "Authentication credentials were not provided."}
     assert response.status_code == 401
