@@ -3,6 +3,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from drf_spectacular.utils import extend_schema_view, extend_schema
 
 from ads.models import Ad, Comment
 from ads.filters import AdFilterSet
@@ -14,6 +15,14 @@ class AdPagination(PageNumberPagination):
     page_size = 4
 
 
+@extend_schema_view(
+    list=extend_schema(description='Retrieve ad list', summary='Ad list'),
+    retrieve=extend_schema(description='Retrieve an ad', summary='Ad'),
+    create=extend_schema(description='Create an ad', summary='Ad creation'),
+    update=extend_schema(description='Update an ad', summary='Ad update', deprecated=True),
+    partial_update=extend_schema(description='Partially update an ad', summary='Ad partial update'),
+    destroy=extend_schema(description='Delete an ad', summary='Ad deletion'),
+)
 class AdViewSet(ModelViewSet):
     queryset = Ad.objects.all()
     querysets = {
